@@ -1,0 +1,591 @@
+/* ========================================
+   VARIABLES CSS & RESET
+   ======================================== */
+
+/*
+  :root = la pseudo-classe qui cible l'élément racine du document (<html>).
+  On y déclare des "variables CSS" (aussi appelées "custom properties").
+  
+  Pourquoi utiliser des variables ?
+  → Si on veut changer la couleur principale, on le fait UNE SEULE FOIS ici,
+    et ça se répercute partout dans le fichier.
+  → C'est le principe DRY : "Don't Repeat Yourself".
+  
+  Syntaxe : --nom-de-la-variable: valeur;
+  Utilisation plus bas : color: var(--nom-de-la-variable);
+*/
+:root {
+    --bg:           #0A0A0A;                    /* Fond principal : noir profond */
+    --bg-card:      #111111;                    /* Fond des cartes : légèrement plus clair */
+    --accent:       #F0FF40;                    /* Couleur d'accentuation : jaune néon */
+    --accent-dim:   rgba(240, 255, 64, 0.06);  /* Accent très transparent (pour les hovers) */
+                                                /* rgba(r, g, b, a) : a = opacité de 0 à 1 */
+    --text:         #F2F2ED;                    /* Texte principal : blanc cassé */
+    --text-muted:   #77776F;                    /* Texte secondaire : gris */
+    --border:       rgba(255, 255, 255, 0.08); /* Bordures : blanc à 8% d'opacité */
+    --font-display: 'Bebas Neue', sans-serif;  /* Police des grands titres */
+    --font-body:    'DM Sans', sans-serif;     /* Police du texte courant */
+    --max-width:    1100px;                     /* Largeur max du contenu */
+    --ease:         cubic-bezier(0.4, 0, 0.2, 1); /* Courbe d'accélération des animations */
+                                                   /* cubic-bezier = courbe de Bézier cubique */
+                                                   /* Plus fluide que "ease" ou "ease-in-out" par défaut */
+}
+
+/*
+  RESET UNIVERSEL :
+  Par défaut, chaque navigateur applique ses propres marges et paddings.
+  Ce reset les supprime pour que tous les navigateurs aient le même comportement de base.
+  
+  * = sélecteur universel (cible TOUS les éléments)
+  *::before et *::after = les pseudo-éléments (contenu généré en CSS)
+  
+  box-sizing: border-box → change le modèle de boîte CSS :
+    - Par défaut (content-box) : width ne compte pas le padding et la bordure.
+      Un div de 200px avec padding:20px mesure en réalité 240px.
+    - Avec border-box : width inclut le padding et la bordure.
+      Un div de 200px avec padding:20px mesure exactement 200px.
+    → Beaucoup plus intuitif pour calculer les tailles.
+*/
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+  scroll-behavior: smooth → le défilement entre les ancres (#about, #skills...)
+  se fait avec une animation fluide au lieu de sauter brusquement.
+*/
+html {
+    scroll-behavior: smooth;
+}
+
+/*
+  Styles de base du corps de la page.
+*/
+body {
+    background: var(--bg);             /* Fond noir */
+    color: var(--text);                /* Couleur de texte par défaut */
+    font-family: var(--font-body);     /* Police par défaut pour tout le texte */
+    font-weight: 300;                  /* Graisse "light" (300 < 400=normal < 700=bold) */
+    line-height: 1.6;                  /* Hauteur de ligne = 1.6× la taille de police */
+                                       /* Améliore la lisibilité des longs textes */
+    -webkit-font-smoothing: antialiased; /* Lissage des polices sur macOS/iOS (webkit) */
+                                         /* Rend les polices plus nettes sur écrans rétine */
+}
+
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+nav {
+    position: fixed;       /* La nav reste collée en haut même quand on scrolle */
+    top: 0;                /* Collée tout en haut */
+    left: 0;               /* Collée à gauche */
+    right: 0;              /* Collée à droite → donc pleine largeur */
+    z-index: 100;          /* Couche d'empilement : 100 = au-dessus de tout le contenu */
+                           /* Les éléments avec un z-index plus élevé passent "devant" */
+    display: flex;                     /* Active le mode Flexbox pour les enfants */
+    justify-content: space-between;    /* Logo à gauche, liens à droite */
+    align-items: center;               /* Centre verticalement logo et liens */
+    padding: 1.25rem 2rem;             /* Espace intérieur : 1.25rem haut/bas, 2rem gauche/droite */
+                                       /* rem = relatif à la taille de police de la racine (html) */
+                                       /* Par défaut, 1rem = 16px */
+    transition: background 0.4s var(--ease), border-bottom 0.4s var(--ease);;
+    /* transition : anime le changement de propriétés CSS.
+       Syntaxe : propriété durée courbe-d'accélération
+       Ici, quand .scrolled est ajouté, le fond et la bordure apparaissent progressivement en 0.4s */
+}
+
+/*
+  nav.scrolled = sélecteur de combinaison :
+  Cible l'élément <nav> UNIQUEMENT quand il possède AUSSI la classe "scrolled".
+  Cette classe est ajoutée/retirée dynamiquement par le JavaScript.
+  
+  backdrop-filter: blur() → floute ce qui est DERRIÈRE l'élément (comme le verre dépoli).
+  Crée un effet "glassmorphism" très moderne.
+  -webkit-backdrop-filter : préfixe vendeur pour la compatibilité Safari.
+*/
+nav.scrolled {
+    background: rgba(10, 10, 10, 0.92); /* Fond semi-transparent (92% d'opacité) */
+    backdrop-filter: blur(14px);         /* Flou derrière la nav */
+    -webkit-backdrop-filter: blur(14px); /* Idem, pour Safari */
+    border-bottom: 1px solid var(--border); /* Fine ligne de séparation en bas */
+}
+
+/* Le logo dans la nav */
+.nav-logo {
+    font-family: var(--font-display); /* Police Bebas Neue */
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;           /* Espacement entre les lettres */
+    color: var(--accent);             /* Jaune néon */
+    text-decoration: none;            /* Supprime le soulignement par défaut des liens */
+}
+
+/* Liste de liens de navigation */
+.nav-links {
+    display: flex;       /* Liens côte à côte (en ligne) */
+    gap: 2.5rem;         /* Espace entre chaque lien */
+    list-style: none;    /* Supprime les puces des <li> */
+}
+
+/* Les liens <a> dans la nav */
+.nav-links a {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;   /* Espacement entre lettres → effet uppercase + aéré */
+    text-transform: uppercase; /* Tout en majuscules */
+    color: var(--text-muted);  /* Gris par défaut */
+    text-decoration: none;
+    transition: color 0.25s var(--ease); /* Couleur animée au survol */
+}
+
+/*
+  Deux sélecteurs séparés par une virgule = même règle CSS pour les deux.
+  :hover = quand la souris est dessus
+  .active = classe ajoutée par JS au lien correspondant à la section visible
+*/
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent); /* Jaune au survol et pour la section active */
+}
+
+
+/* ========================================
+   SECTION BASE (styles communs à toutes les sections)
+   ======================================== */
+
+/*
+  Styles appliqués à TOUTES les balises <section>.
+  max-width + margin:auto → le contenu ne dépasse pas 1100px et est centré.
+  C'est la technique classique pour centrer un bloc horizontalement.
+*/
+section {
+    padding: 7rem 2rem;          /* Grand espace vertical pour aérer les sections */
+    max-width: var(--max-width); /* Largeur max */
+    margin: 0 auto;              /* 0 haut/bas, auto gauche/droite → centrage horizontal */
+}
+
+/* Le petit label numéroté (ex: "01 — À propos") */
+.section-label {
+    display: inline-block;   /* Nécessaire pour appliquer margin-bottom sur un <span> */
+                             /* Par défaut <span> est "inline" et margin-bottom ne fonctionne pas */
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.75rem;
+}
+
+
+/* ========================================
+   SECTION HERO
+   ======================================== */
+
+#hero {
+    min-height: 100vh;       /* 100vh = 100% de la hauteur du viewport (fenêtre visible) */
+                             /* min-height = au moins 100vh, peut être plus si le contenu est grand */
+    display: flex;
+    flex-direction: column;  /* Les enfants s'empilent verticalement (au lieu d'horizontalement) */
+    justify-content: center; /* Centre verticalement dans le flex container */
+    padding-top: 6rem;       /* Espace en haut pour ne pas être caché sous la nav fixe */
+}
+
+/* Petit texte au-dessus du titre (ex: "Développeur Fullstack") */
+.hero-eyebrow {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Nom principal (le grand titre h1) */
+.hero-name {
+    font-family: var(--font-display);
+
+    /*
+      clamp(min, préféré, max) : Taille responsive sans media query !
+      La police fait :
+        - Au moins 5rem (sur très petits écrans)
+        - Idéalement 13vw (13% de la largeur du viewport)
+        - Au maximum 11.5rem (sur grands écrans)
+      → S'adapte automatiquement à la taille de l'écran.
+      vw = viewport width
+    */
+    font-size: clamp(5rem, 13vw, 11.5rem);
+
+    line-height: 0.88;   /* Hauteur de ligne très serrée pour les grands titres display */
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+/* Cible le <span class="accent"> à l'intérieur de .hero-name */
+.hero-name .accent {
+    color: var(--accent); /* Jaune pour le nom de famille */
+}
+
+/* Phrase descriptive sous le titre */
+.hero-title {
+    font-size: clamp(1rem, 1.8vw, 1.25rem); /* Aussi responsive avec clamp() */
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 520px;    /* Limite la longueur des lignes pour la lisibilité */
+    margin-bottom: 3rem;
+    line-height: 1.75;
+}
+
+/* Bouton "Me contacter" */
+.hero-cta {
+    display: inline-flex; /* inline-flex = flex mais ne prend que la largeur de son contenu */
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg);           /* Texte noir (sur fond jaune) */
+    background: var(--accent);  /* Fond jaune néon */
+    padding: 1rem 2.25rem;
+    text-decoration: none;
+    transition: opacity 0.25s, transform 0.25s var(--ease);
+}
+
+/* Effet au survol du bouton : légèrement transparent + monte de 2px */
+.hero-cta:hover {
+    opacity: 0.85;             /* 85% d'opacité = légèrement transparent */
+    transform: translateY(-2px); /* Monte de 2px → effet de "lévitation" */
+}
+
+/* Indicateur de scroll (ligne + texte "Scroll") */
+.hero-scroll {
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* La petite ligne horizontale de l'indicateur de scroll */
+.hero-scroll-line {
+    width: 44px;
+    height: 1px;               /* Très fine : 1px de haut */
+    background: var(--text-muted);
+}
+
+
+/* ========================================
+   SECTION À PROPOS
+   ======================================== */
+
+/* Ligne de séparation en haut de la section */
+#about {
+    border-top: 1px solid var(--border);
+}
+
+/*
+  CSS Grid pour la mise en page de la section about.
+  grid-template-columns: 1fr 1.6fr → deux colonnes.
+  "fr" = fraction de l'espace disponible.
+  → Colonne 1 prend 1 part, Colonne 2 prend 1.6 parts.
+  → Colonne 2 est donc 60% plus large que la colonne 1.
+*/
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;           /* Espace entre les colonnes */
+    align-items: start;  /* Aligne les enfants en haut de la grille */
+}
+
+/* Grand titre "Qui / suis- / je ?" */
+.about-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+}
+
+/* Bloc de texte de présentation */
+.about-body {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.85;
+}
+
+/*
+  Sélecteur CSS avancé : .about-body p + p
+  "+" = sélecteur de frère adjacent.
+  Cible un <p> qui est IMMÉDIATEMENT précédé d'un autre <p>,
+  et seulement si les deux sont dans .about-body.
+  → Ajoute une marge entre les paragraphes, sans en mettre avant le premier.
+*/
+.about-body p + p {
+    margin-top: 1.25rem;
+}
+
+/* Les <strong> dans .about-body sont blancs (au lieu du gris du texte parent) */
+.about-body strong {
+    color: var(--text);
+    font-weight: 500;
+}
+
+
+/* ========================================
+   SECTION COMPÉTENCES
+   ======================================== */
+
+#skills {
+    border-top: 1px solid var(--border);
+}
+
+.skills-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 3rem;
+}
+
+/*
+  Grille de compétences avec une astuce visuelle :
+  - background: var(--border) → fond gris sur toute la grille
+  - gap: 1px → espace de 1px entre les cellules
+  - Les cellules (.skill-category) ont background: var(--bg) (fond noir)
+  
+  Résultat : les séparations de 1px laissent voir le fond gris de la grille.
+  → Donne l'impression de lignes de séparation très fines entre les catégories.
+  C'est plus propre que d'ajouter border à chaque cellule.
+*/
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+                                           /* repeat(3, 1fr) = 1fr 1fr 1fr */
+    border: 1px solid var(--border);       /* Bordure extérieure */
+    gap: 1px;                              /* Séparation de 1px = la "bordure" entre cellules */
+    background: var(--border);            /* La grille elle-même est grise */
+}
+
+/* Chaque colonne de compétences */
+.skill-category {
+    background: var(--bg);          /* Fond noir "couvre" le fond gris de la grille */
+    padding: 2rem 1.75rem;
+    transition: background 0.3s var(--ease); /* Transition douce au hover */
+}
+
+/* Fond légèrement jaune au survol d'une catégorie */
+.skill-category:hover {
+    background: var(--accent-dim); /* Jaune très transparent */
+}
+
+/* Titre de catégorie (ex: "Frontend", "Backend") */
+.skill-cat-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+}
+
+/* Liste des compétences */
+.skill-list {
+    display: flex;     /* Les tags côte à côte */
+    flex-wrap: wrap;   /* Reviennent à la ligne si pas assez de place */
+    gap: 0.5rem;
+    list-style: none;
+}
+
+/* Chaque "tag" de compétence */
+.skill-tag {
+    font-size: 0.83rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--border); /* Bordure fine */
+    transition: color 0.2s, border-color 0.2s;
+}
+
+/* Le tag s'illumine au survol */
+.skill-tag:hover {
+    color: var(--text);
+    border-color: rgba(240, 255, 64, 0.25); /* Bordure jaune à 25% d'opacité */
+}
+
+
+/* ========================================
+   SECTION CONTACT
+   ======================================== */
+
+#contact {
+    border-top: 1px solid var(--border);
+}
+
+/* Grand titre de contact */
+.contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 9vw, 9rem); /* Encore plus grand que les autres titres */
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    margin-bottom: 3rem;
+}
+
+.contact-title .accent {
+    color: var(--accent);
+}
+
+/* Conteneur des liens de contact */
+.contact-links {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap; /* Passe à la ligne sur petits écrans */
+}
+
+/* Chaque lien de contact (Email, GitHub, LinkedIn) */
+.contact-link {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border); /* Soulignement personnalisé (remplace text-decoration) */
+    padding-bottom: 0.3rem;                  /* Espace entre le texte et le soulignement */
+    transition: color 0.25s, border-color 0.25s;
+}
+
+/* Au survol, le lien et son soulignement deviennent jaunes */
+.contact-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer {
+    max-width: var(--max-width);
+    margin: 0 auto;          /* Centré comme les sections */
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between; /* Copyright à gauche, ville à droite */
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+
+/* ========================================
+   ANIMATIONS AU SCROLL (.reveal)
+   ======================================== */
+
+/*
+  Système d'animation en 2 étapes :
+  
+  ÉTAPE 1 : État initial caché (.reveal)
+  L'élément est invisible et décalé vers le bas de 28px.
+  
+  ÉTAPE 2 : État visible (.reveal.visible)
+  Le JS ajoute la classe "visible" quand l'élément entre dans le viewport.
+  Le CSS anime alors la transition opacity + transform.
+*/
+
+/* État initial : invisible et décalé */
+.reveal {
+    opacity: 0;                /* Totalement transparent */
+    transform: translateY(28px); /* Décalé de 28px vers le bas */
+
+    /*
+      transition : définit comment se fait le changement d'état.
+      Syntaxe : propriété durée courbe
+      Ici : opacity ET transform s'animent en 0.7s avec notre courbe personnalisée.
+      
+      Quand .visible est ajouté → opacity passe de 0 à 1, translateY de 28px à 0.
+      → L'élément monte et apparaît progressivement.
+    */
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+/* État final : visible et en position normale */
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0); /* Aucun décalage */
+}
+
+/*
+  Classes de délai pour créer un effet de cascade :
+  Quand plusieurs éléments ont .reveal et un .delay-x,
+  ils ne s'animent pas tous en même temps.
+  
+  transition-delay : attend X secondes avant de démarrer la transition.
+  → Effet "domino" : le premier apparaît, puis le deuxième 0.1s après, etc.
+*/
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+
+/* ========================================
+   RESPONSIVE (Media Queries)
+   ======================================== */
+
+/*
+  @media : Règle CSS conditionnelle.
+  Ce bloc s'applique UNIQUEMENT si la condition est vraie.
+  
+  (max-width: 768px) : s'active quand l'écran fait 768px ou moins.
+  768px est la largeur typique d'une tablette en portrait / grand téléphone.
+  
+  À l'intérieur, on "écrase" les styles définis plus haut pour adapter le design mobile.
+*/
+@media (max-width: 768px) {
+
+    /* Nav : moins de padding sur mobile */
+    nav {
+        padding: 1rem 1.25rem;
+    }
+
+    /*
+      Les liens de nav disparaissent sur mobile.
+      display: none → l'élément n'existe plus visuellement (ni espace, ni interaction).
+      En production, on remplacerait par un menu "hamburger" (☰).
+    */
+    .nav-links {
+        display: none;
+    }
+
+    /* Moins de padding vertical pour les sections */
+    section {
+        padding: 5rem 1.25rem;
+    }
+
+    /*
+      La grille About passe d'une mise en page 2 colonnes à 1 seule colonne.
+      Sur mobile, les éléments s'empilent verticalement.
+    */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Idem pour la grille de compétences : 3 colonnes → 1 colonne */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Les liens de contact s'empilent verticalement au lieu d'être côte à côte */
+    .contact-links {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<!-- 
+  DOCTYPE html : Toujours en première ligne.
+  Dit au navigateur : "ce fichier suit les règles HTML5 (la version moderne)."
+  Sans ça, le navigateur peut afficher la page en "mode quirks" (comportement bizarre).
+-->
+
+<html lang="fr">
+<!--
+  <html> : La balise racine qui contient TOUT le document.
+  lang="fr" : Précise la langue du contenu.
+             Utile pour les lecteurs d'écran (accessibilité) et le référencement (SEO).
+-->
+
+<head>
+  <!--
+    <head> : Zone "invisible" du document.
+    Elle ne s'affiche pas dans le navigateur, mais contient des infos importantes :
+    - charset (encodage des caractères)
+    - viewport (affichage mobile)
+    - title (onglet du navigateur)
+    - liens vers les CSS et polices
+  -->
+
+  <!-- ENCODAGE : UTF-8 permet d'afficher les accents (é, à, ç...) et tous les caractères spéciaux -->
+  <meta charset="UTF-8">
+
+  <!--
+    VIEWPORT : Indispensable pour le responsive (affichage mobile).
+    width=device-width → la largeur de la page = la largeur de l'écran
+    initial-scale=1.0  → pas de zoom au départ
+    Sans cette ligne, les mobiles affichent la version desktop zoomée dézoomer.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TITRE : Texte affiché dans l'onglet du navigateur et dans les résultats Google -->
+  <title>Luther - Développeur Fullstack</title>
+
+  <!--
+    POLICES GOOGLE FONTS :
+    On charge deux polices depuis le CDN de Google.
+    
+    1. "preconnect" : Optimisation de performance.
+       Dit au navigateur d'ouvrir la connexion avec fonts.googleapis.com en avance,
+       avant même de demander les fichiers CSS des polices.
+       → Réduit le temps d'attente.
+    
+    2. Le <link> suivant charge réellement les polices :
+       - Bebas Neue → police d'affichage (titres gros, tout en majuscules)
+       - DM Sans    → police de corps de texte (lisible, moderne)
+       opsz,wght@9..40,300;9..40,400;9..40,500 = variantes de taille optique et de graisse
+       display=swap → affiche d'abord la police système, puis remplace quand Google Font est chargée
+                      (évite le flash de texte invisible)
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+
+  <!--
+    FEUILLE DE STYLE CSS :
+    Lie notre fichier style.css à cette page HTML.
+    rel="stylesheet" = c'est une feuille de style
+    href="style.css"  = le chemin vers le fichier (ici, même dossier que index.html)
+    
+    ⚠️ Toujours dans le <head>, jamais dans le <body>.
+    Le navigateur doit connaître les styles AVANT d'afficher le contenu.
+  -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <!--
+    <body> : Tout ce qui est VISIBLE sur la page va ici.
+    Le navigateur lit le body de haut en bas et affiche chaque élément dans l'ordre.
+  -->
+
+  <!-- ================================================
+       NAVIGATION
+  ================================================ -->
+  <!--
+    <nav> : Balise sémantique HTML5 pour la navigation principale.
+    "Sémantique" = le nom de la balise a un sens (nav = navigation).
+    C'est mieux que <div id="nav"> car les moteurs de recherche et
+    les lecteurs d'écran comprennent que c'est un menu de navigation.
+
+    id="navbar" : Un identifiant unique sur la page.
+    Le JS et le CSS s'y réfèrent pour ajouter l'effet de fond au scroll.
+  -->
+  <nav id="navbar">
+
+    <!--
+      Logo : un lien <a> qui pointe vers #hero (le haut de la page).
+      href="#hero" = navigation interne (ancre), pas de rechargement de page.
+      class="nav-logo" = le CSS appliquera les styles de logo à cet élément.
+    -->
+    <a href="#hero" class="nav-logo">LB</a>
+
+    <!--
+      <ul> = "unordered list" (liste non ordonnée, sans numérotation).
+      C'est la façon correcte de structurer un menu de navigation.
+      Chaque item est un <li> (list item) qui contient un lien <a>.
+    -->
+    <ul class="nav-links">
+      <!-- href="#about" → lien vers la section avec id="about" sur la même page -->
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- ================================================
+       SECTION HERO (Introduction)
+  ================================================ -->
+  <!--
+    <section> : Balise sémantique pour une grande zone de contenu thématique.
+    id="hero" : Identifiant unique → permet les liens d'ancre (#hero) et le ciblage JS/CSS.
+    aria-label="Introduction" : Accessibilité.
+                                "aria" = ARIA (Accessible Rich Internet Applications).
+                                Donne une description aux technologies d'assistance (lecteurs d'écran).
+  -->
+  <section id="hero" aria-label="Introduction">
+
+    <!-- Petit texte au-dessus du titre principal (sous-titre d'accroche) -->
+    <p class="hero-eyebrow">Développeur Fullstack</p>
+
+    <!--
+      <h1> : Le titre principal de la page.
+      ⚠️ Il ne doit y en avoir qu'UN SEUL par page (règle SEO et accessibilité).
+      <br /> : Saut de ligne forcé à l'intérieur du titre.
+      <span> : Balise "inline" (dans le texte) sans sémantique propre.
+               On l'utilise ici juste pour cibler "Brailleur-cmd" avec CSS (class="accent").
+    -->
+    <h1 class="hero-name">
+      Luther<br /><span class="accent">Brailleur-cmd</span>
+    </h1>
+
+    <!-- Phrase de description sous le titre -->
+    <p class="hero-title">
+      Actuellement en formation à La Capsule à Paris, je suis passionné par le développement web et la création
+      d'interfaces modernes.
+    </p>
+
+    <!--
+      Bouton d'appel à l'action (CTA = Call To Action).
+      C'est un <a> et non un <button> car il navigue vers une section (#contact).
+      → Règle : <button> = action JS, <a> = navigation.
+    -->
+    <a href="#contact" class="hero-cta">Me contacter →</a>
+
+    <!--
+      Indicateur de scroll visuel (la petite ligne + "Scroll" en bas du hero).
+      aria-hidden="true" : Dit aux lecteurs d'écran d'ignorer cet élément.
+                           C'est purement décoratif, pas besoin de le lire à voix haute.
+    -->
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="hero-scroll-line"></span> <!-- Ligne horizontale décorative -->
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ================================================
+       SECTION À PROPOS
+  ================================================ -->
+  <section id="about" aria-label="À propos">
+
+    <!-- Label de section numéroté (décoratif, pas un vrai titre) -->
+    <span class="section-label">01 — À propos</span>
+
+    <!--
+      <div> : Balise "conteneur" générique, sans sémantique.
+      On l'utilise quand aucune balise sémantique ne convient.
+      Ici, c'est juste pour appliquer la grille CSS (class="about-grid").
+    -->
+    <div class="about-grid">
+
+      <!--
+        <h2> : Titre de niveau 2 (sous le h1).
+        Hiérarchie des titres : h1 > h2 > h3 > h4...
+        
+        class="about-title reveal" : Deux classes appliquées simultanément.
+        "reveal" → l'élément démarre invisible (opacity:0) et apparaît au scroll via JS.
+      -->
+      <h2 class="about-title reveal">Qui<br />suis-<br />je ?</h2>
+
+      <!--
+        "reveal delay-1" : deux classes.
+        "delay-1" ajoute un délai de 0.1s sur la transition pour décaler l'animation
+        par rapport à l'élément précédent (effet de cascade).
+      -->
+      <div class="about-body reveal delay-1">
+        <p>
+          Développeur web basé à <strong>Paris</strong>, je me spécialise dans la création d'applications fullstack avec
+          <!-- <strong> : Met le texte en gras ET indique que c'est IMPORTANT sémantiquement -->
+          une stack moderne : <strong>Next.js, TypeScript, Supabase</strong> et Tailwind CSS.
+        </p>
+        <p>
+          Avant de me consacrer pleinement au développement, j'ai travaillé plusieurs années dans le <strong>support
+            technique et helpdesk</strong> — une expérience qui nourrit ma façon de concevoir des outils : simples,
+          robustes, pensés pour les vrais utilisateurs.
+        </p>
+        <p>
+          Je m'intéresse particulièrement aux <strong>produits SaaS</strong> qui résolvent des problèmes concrets, et
+          j'aime aller de l'idée au prototype rapidement.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION COMPÉTENCES
+  ================================================ -->
+  <section id="skills" aria-label="Compétences">
+
+    <span class="section-label">02 — Compétences</span>
+
+    <!--
+      &amp; = l'entité HTML pour le caractère "&".
+      En HTML, certains caractères ont une signification spéciale (<, >, &, ").
+      Pour les afficher tels quels dans le texte, on utilise des "entités HTML" :
+        & → &amp;
+        < → &lt;
+        > → &gt;
+    -->
+    <h2 class="skills-title reveal">Stack &<br />Outils</h2>
+
+    <!-- Grille de 3 colonnes de compétences (le CSS gère la mise en page) -->
+    <div class="skills-grid">
+
+      <!-- Colonne 1 : Frontend -->
+      <div class="skill-category reveal">
+        <p class="skill-cat-title">Frontend</p>
+        <!--
+          <ul> + <li> : Liste non ordonnée de compétences.
+          Sémantiquement correct (c'est bien une liste d'items).
+        -->
+        <ul class="skill-list">
+          <li class="skill-tag">JavaScript</li>
+          <li class="skill-tag">TypeScript</li>
+          <li class="skill-tag">React</li>
+          <li class="skill-tag">Next.js</li>
+          <li class="skill-tag">HTML / CSS</li>
+          <li class="skill-tag">Tailwind CSS</li>
+        </ul>
+      </div>
+
+      <!--
+        "reveal delay-1" : même animation que les autres, mais avec 0.1s de décalage.
+        Crée un effet de cascade : les colonnes apparaissent l'une après l'autre.
+      -->
+      <div class="skill-category reveal delay-1">
+        <p class="skill-cat-title">Backend & BDD</p>
+        <ul class="skill-list">
+          <li class="skill-tag">Node.js</li>
+          <li class="skill-tag">Supabase</li>
+          <li class="skill-tag">PostgreSQL</li>
+          <li class="skill-tag">REST API</li>
+        </ul>
+      </div>
+
+      <!-- "delay-2" = 0.2s de décalage -->
+      <div class="skill-category reveal delay-2">
+        <p class="skill-cat-title">Outils</p>
+        <ul class="skill-list">
+          <li class="skill-tag">Git / GitHub</li>
+          <li class="skill-tag">Vercel</li>
+          <li class="skill-tag">Figma</li>
+          <li class="skill-tag">VS Code</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECTION CONTACT
+  ================================================ -->
+  <section id="contact" aria-label="Contact">
+
+    <span class="section-label">03 — Contact</span>
+
+    <h2 class="contact-title reveal">
+      Travaillons<br /><span class="accent">ensemble.</span>
+    </h2>
+
+    <div class="contact-links reveal delay-1">
+
+      <!--
+        LIENS DE CONTACT :
+        
+        href="mailto:..." → Ouvre le client mail de l'utilisateur (ex: Outlook, Mail.app).
+        
+        href="https://..." → Lien externe (autre site).
+        target="_blank"   → Ouvre dans un nouvel onglet.
+        rel="noopener noreferrer" → SÉCURITÉ obligatoire avec target="_blank".
+          - noopener   : La nouvelle page ne peut pas accéder à window.opener (notre page).
+                         Sans ça, un site malveillant pourrait modifier notre page.
+          - noreferrer : Ne transmet pas l'URL de notre site à la destination.
+      -->
+      <a href="mailto:lutherbrailleur.dev@proton.me" class="contact-link">✉ Email</a>
+      <a href="https://github.com/LutHub-cmd" target="_blank" rel="noopener noreferrer" class="contact-link">⌥
+        GitHub</a>
+      <a href="www.linkedin.com/in/lutherbrailleur" target="_blank" rel="noopener noreferrer" class="contact-link">↗
+        LinkedIn</a>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <!--
+    <footer> : Balise sémantique pour le pied de page.
+    Contient généralement : copyright, liens légaux, infos de contact secondaires.
+  -->
+  <footer>
+    <span>© 2025 Luther Brailleur-cmd</span>
+    <span>Paris, France</span>
+  </footer>
+
+  <!--
+    CHARGEMENT DU JAVASCRIPT :
+    Le <script> est placé TOUT EN BAS du <body>, juste avant </body>.
+    
+    Pourquoi pas dans le <head> ?
+    → Le JS s'exécute dès qu'il est chargé.
+    → Si on le met dans le <head>, le HTML n'est pas encore construit.
+    → Le JS essaierait de cibler des éléments (nav, sections...) qui n'existent pas encore.
+    → En le mettant à la fin du body, tous les éléments HTML sont déjà créés.
+    
+    src="main.js" : Chemin vers notre fichier JavaScript (même dossier).
+  -->
+  <script src="main.js"></script>
+
+</body>
+
+</html>
