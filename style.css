@@ -465,30 +465,9 @@ section {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    overflow: hidden;
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
-.project-img-wrap {
-    margin: -2rem -2rem 0 -2rem;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    border-bottom: 1px solid var(--border);
-}
-
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: saturate(0.75) brightness(0.92);
-    transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
-}
-
-.project-card:hover .project-img {
-    transform: scale(1.04);
-    filter: saturate(1) brightness(1);
-}
 
 .project-card:hover {
     border-color: rgba(240, 255, 64, 0.25);
@@ -548,6 +527,144 @@ section {
     gap: 0.4rem;
     list-style: none;
     margin-top: auto;
+}
+
+
+/* ========================================
+   SECTION PARCOURS
+   ======================================== */
+
+#parcours {
+    border-top: 1px solid var(--border);
+}
+
+.parcours-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.parcours-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+}
+
+.parcours-cv-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    padding-bottom: 0.4rem;
+}
+
+.cv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    text-decoration: none;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
+                opacity 0.25s, transform 0.25s var(--ease);
+}
+
+.cv-btn--view {
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.cv-btn--view:hover {
+    color: var(--accent);
+    border-color: rgba(240, 255, 64, 0.35);
+}
+
+.cv-btn--download {
+    color: var(--bg);
+    background: var(--accent);
+}
+
+.cv-btn--download:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.parcours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.parcours-col-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+}
+
+.parcours-entry {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.parcours-entry:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.parcours-date {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.parcours-role {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    letter-spacing: 0.03em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+}
+
+.parcours-company {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.9rem;
+}
+
+.parcours-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.parcours-bullets li {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.parcours-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
 }
 
 
@@ -718,6 +835,11 @@ footer {
         grid-template-columns: 1fr;
     }
 
+
+    .parcours-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
 
     /* Les liens de contact s'empilent verticalement au lieu d'être côte à côte */
     .contact-links {

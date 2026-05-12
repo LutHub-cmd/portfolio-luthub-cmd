@@ -108,6 +108,7 @@
       <li><a href="#about">À propos</a></li>
       <li><a href="#skills">Compétences</a></li>
       <li><a href="#projects">Projets</a></li>
+      <li><a href="#parcours">Parcours</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
 
@@ -187,17 +188,16 @@
 
       <div class="about-body reveal delay-2">
         <p>
-          Développeur web basé à <strong>Paris</strong>, je me spécialise dans la création d'applications fullstack avec
-          une stack moderne : <strong>Next.js, TypeScript, Supabase</strong> et Tailwind CSS.
+          Développeur fullstack en reconversion, je construis des applications web avec une stack moderne :
+          <strong>Next.js, TypeScript, Supabase</strong>.
         </p>
         <p>
-          Avant de me consacrer pleinement au développement, j'ai travaillé plusieurs années dans le <strong>support
-            technique et helpdesk</strong> — une expérience qui nourrit ma façon de concevoir des outils : simples,
-          robustes, pensés pour les vrais utilisateurs.
+          4 ans de <strong>support applicatif</strong> dans des environnements SaaS B2B et médical m'ont appris à
+          comprendre les contraintes de production, à collaborer avec des équipes techniques, et à penser les interfaces
+          du point de vue des <strong>vrais utilisateurs</strong>.
         </p>
         <p>
-          Je m'intéresse particulièrement aux <strong>produits SaaS</strong> qui résolvent des problèmes concrets, et
-          j'aime aller de l'idée au prototype rapidement.
+          J'apprends en autonomie, je code en dehors des horaires, et mes projets GitHub en témoignent.
         </p>
       </div>
 
@@ -281,9 +281,6 @@
     <div class="projects-grid">
 
       <article class="project-card reveal">
-        <div class="project-img-wrap">
-          <img src="assets/nimbus-preview.png" alt="Aperçu de Nimbus" class="project-img" />
-        </div>
         <div class="project-card-header">
           <h3 class="project-name">Nimbus</h3>
           <div class="project-links">
@@ -319,9 +316,6 @@
       </article>
 
       <article class="project-card reveal delay-2">
-        <div class="project-img-wrap">
-          <img src="assets/spira-preview.png" alt="Aperçu de Spira" class="project-img" />
-        </div>
         <div class="project-card-header">
           <h3 class="project-name">Spira</h3>
           <div class="project-links">
@@ -344,11 +338,87 @@
   </section>
 
   <!-- ================================================
+       SECTION PARCOURS
+  ================================================ -->
+  <section id="parcours" aria-label="Parcours">
+
+    <span class="section-label">04 — Parcours</span>
+
+    <div class="parcours-header reveal">
+      <h2 class="parcours-title">Expérience &<br />Formation</h2>
+      <div class="parcours-cv-actions">
+        <a href="assets/cv.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn cv-btn--view" aria-label="Visualiser le CV" title="Visualiser le CV">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+        <a href="assets/cv.pdf" download="CV_Luther_Brailleur.pdf" class="cv-btn cv-btn--download" aria-label="Télécharger le CV" title="Télécharger le CV">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="parcours-grid">
+
+      <div class="parcours-col reveal">
+        <p class="parcours-col-label">Expérience</p>
+
+        <div class="parcours-entry">
+          <span class="parcours-date">09/2025 – 03/2026</span>
+          <h3 class="parcours-role">Support Engineer — SaaS B2B</h3>
+          <span class="parcours-company">Oriana · Socianova — Paris</span>
+          <ul class="parcours-bullets">
+            <li>Reproduction de bugs et tests applicatifs — logique proche du QA et de la recette fonctionnelle.</li>
+            <li>Collaboration directe avec les développeurs sur des incidents complexes.</li>
+            <li>Proposition d'améliorations produit à partir des retours utilisateurs terrain.</li>
+          </ul>
+        </div>
+
+        <div class="parcours-entry">
+          <span class="parcours-date">07/2022 – 09/2025</span>
+          <h3 class="parcours-role">Support Applicatif — Domaine Médical</h3>
+          <span class="parcours-company">COURANTS — Orsay</span>
+          <ul class="parcours-bullets">
+            <li>Gestion de 40+ applications métier (ENRS) — compréhension des contraintes production.</li>
+            <li>Diagnostic des incidents, identification des causes racines, documentation technique précise.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="parcours-col reveal delay-1">
+        <p class="parcours-col-label">Formation</p>
+
+        <div class="parcours-entry">
+          <span class="parcours-date">2025 – 2026</span>
+          <h3 class="parcours-role">Bootcamp Développeur Fullstack</h3>
+          <span class="parcours-company">La Capsule — Paris</span>
+          <ul class="parcours-bullets">
+            <li>En cours de sélection.</li>
+          </ul>
+        </div>
+
+        <div class="parcours-entry">
+          <span class="parcours-date">2021 – 2022</span>
+          <h3 class="parcours-role">Développeur Web &amp; Web Mobile — Niv. V</h3>
+          <span class="parcours-company">ALT RH — Paris</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
        SECTION CONTACT
   ================================================ -->
   <section id="contact" aria-label="Contact">
 
-    <span class="section-label">04 — Contact</span>
+    <span class="section-label">05 — Contact</span>
 
     <h2 class="contact-title reveal">
       Travaillons<br /><span class="accent">ensemble.</span>
