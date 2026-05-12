@@ -107,6 +107,7 @@
       <!-- href="#about" → lien vers la section avec id="about" sur la même page -->
       <li><a href="#about">À propos</a></li>
       <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
 
@@ -140,8 +141,8 @@
 
     <!-- Phrase de description sous le titre -->
     <p class="hero-title">
-      Actuellement en formation à La Capsule à Paris, je suis passionné par le développement web et la création
-      d'interfaces modernes.
+      Passionné par le développement web et la création d'interfaces modernes, je suis activement à la recherche
+      d'une école pour structurer mon apprentissage et lancer ma carrière dans le numérique.
     </p>
 
     <!--
@@ -178,21 +179,13 @@
     -->
     <div class="about-grid">
 
-      <!--
-        <h2> : Titre de niveau 2 (sous le h1).
-        Hiérarchie des titres : h1 > h2 > h3 > h4...
-        
-        class="about-title reveal" : Deux classes appliquées simultanément.
-        "reveal" → l'élément démarre invisible (opacity:0) et apparaît au scroll via JS.
-      -->
-      <h2 class="about-title reveal">Qui<br />suis-<br />je ?</h2>
+      <div class="about-photo reveal">
+        <img src="assets/photo.png" alt="Luther Brailleur-cmd" class="about-img" />
+      </div>
 
-      <!--
-        "reveal delay-1" : deux classes.
-        "delay-1" ajoute un délai de 0.1s sur la transition pour décaler l'animation
-        par rapport à l'élément précédent (effet de cascade).
-      -->
-      <div class="about-body reveal delay-1">
+      <h2 class="about-title reveal delay-1">Qui<br />suis-<br />je ?</h2>
+
+      <div class="about-body reveal delay-2">
         <p>
           Développeur web basé à <strong>Paris</strong>, je me spécialise dans la création d'applications fullstack avec
           une stack moderne : <strong>Next.js, TypeScript, Supabase</strong> et Tailwind CSS.
@@ -277,11 +270,79 @@
   </section>
 
   <!-- ================================================
+       SECTION PROJETS
+  ================================================ -->
+  <section id="projects" aria-label="Projets">
+
+    <span class="section-label">03 — Projets</span>
+
+    <h2 class="projects-title reveal">Réalisations</h2>
+
+    <div class="projects-grid">
+
+      <article class="project-card reveal">
+        <div class="project-card-header">
+          <h3 class="project-name">Nimbus</h3>
+          <div class="project-links">
+            <a href="https://github.com/LutHub-cmd/Nimbus" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          App météo vanilla JS — recherche une ville et affiche la température, le ressenti, l'humidité, la vitesse du vent et la pression atmosphérique via une API météo.
+        </p>
+        <ul class="project-tags">
+          <li class="skill-tag">HTML</li>
+          <li class="skill-tag">CSS</li>
+          <li class="skill-tag">JavaScript</li>
+          <li class="skill-tag">API REST</li>
+        </ul>
+      </article>
+
+      <article class="project-card reveal delay-1">
+        <div class="project-card-header">
+          <h3 class="project-name">Portfolio</h3>
+          <div class="project-links">
+            <a href="https://github.com/LutHub-cmd/portfolio-luthhub-cmd" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Ce portfolio — conçu de zéro en HTML/CSS vanilla, sans framework, avec animations au scroll et design system cohérent.
+        </p>
+        <ul class="project-tags">
+          <li class="skill-tag">HTML</li>
+          <li class="skill-tag">CSS</li>
+          <li class="skill-tag">JavaScript</li>
+        </ul>
+      </article>
+
+      <article class="project-card reveal delay-2">
+        <div class="project-card-header">
+          <h3 class="project-name">Spira</h3>
+          <div class="project-links">
+            <a href="https://github.com/LutHub-cmd/Spira_compilateur" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
+            <a href="https://luthub-cmd.github.io/Spira-site" target="_blank" rel="noopener noreferrer" class="project-link">Site ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Langage de programmation compilé vers JavaScript où chaque développeur code dans sa langue maternelle — français, anglais, espagnol. Compilateur complet : tokenizer, parser, AST, générateur de code.
+        </p>
+        <ul class="project-tags">
+          <li class="skill-tag">JavaScript</li>
+          <li class="skill-tag">Node.js</li>
+          <li class="skill-tag">Compilateur</li>
+          <li class="skill-tag">Langage</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================================================
        SECTION CONTACT
   ================================================ -->
   <section id="contact" aria-label="Contact">
 
-    <span class="section-label">03 — Contact</span>
+    <span class="section-label">04 — Contact</span>
 
     <h2 class="contact-title reveal">
       Travaillons<br /><span class="accent">ensemble.</span>
@@ -304,7 +365,7 @@
       <a href="mailto:lutherbrailleur.dev@proton.me" class="contact-link">✉ Email</a>
       <a href="https://github.com/LutHub-cmd" target="_blank" rel="noopener noreferrer" class="contact-link">⌥
         GitHub</a>
-      <a href="www.linkedin.com/in/lutherbrailleur" target="_blank" rel="noopener noreferrer" class="contact-link">↗
+      <a href="https://www.linkedin.com/in/lutherbrailleur" target="_blank" rel="noopener noreferrer" class="contact-link">↗
         LinkedIn</a>
 
     </div>
@@ -322,18 +383,6 @@
     <span>Paris, France</span>
   </footer>
 
-  <!--
-    CHARGEMENT DU JAVASCRIPT :
-    Le <script> est placé TOUT EN BAS du <body>, juste avant </body>.
-    
-    Pourquoi pas dans le <head> ?
-    → Le JS s'exécute dès qu'il est chargé.
-    → Si on le met dans le <head>, le HTML n'est pas encore construit.
-    → Le JS essaierait de cibler des éléments (nav, sections...) qui n'existent pas encore.
-    → En le mettant à la fin du body, tous les éléments HTML sont déjà créés.
-    
-    src="main.js" : Chemin vers notre fichier JavaScript (même dossier).
-  -->
   <script src="main.js"></script>
 
 </body>

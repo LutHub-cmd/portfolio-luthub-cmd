@@ -92,7 +92,7 @@ nav {
     padding: 1.25rem 2rem;             /* Espace intérieur : 1.25rem haut/bas, 2rem gauche/droite */
                                        /* rem = relatif à la taille de police de la racine (html) */
                                        /* Par défaut, 1rem = 16px */
-    transition: background 0.4s var(--ease), border-bottom 0.4s var(--ease);;
+    transition: background 0.4s var(--ease), border-bottom 0.4s var(--ease);
     /* transition : anime le changement de propriétés CSS.
        Syntaxe : propriété durée courbe-d'accélération
        Ici, quand .scrolled est ajouté, le fond et la bordure apparaissent progressivement en 0.4s */
@@ -252,6 +252,7 @@ section {
     background: var(--accent);  /* Fond jaune néon */
     padding: 1rem 2.25rem;
     text-decoration: none;
+    align-self: flex-start;
     transition: opacity 0.25s, transform 0.25s var(--ease);
 }
 
@@ -299,9 +300,24 @@ section {
 */
 .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 4rem;           /* Espace entre les colonnes */
-    align-items: start;  /* Aligne les enfants en haut de la grille */
+    grid-template-columns: 200px 1fr 1.6fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.about-photo {
+    position: relative;
+}
+
+.about-img {
+    width: 100%;
+    display: block;
+    filter: grayscale(20%);
+    transition: filter 0.4s var(--ease);
+}
+
+.about-img:hover {
+    filter: grayscale(0%);
 }
 
 /* Grand titre "Qui / suis- / je ?" */
@@ -417,6 +433,99 @@ section {
 .skill-tag:hover {
     color: var(--text);
     border-color: rgba(240, 255, 64, 0.25); /* Bordure jaune à 25% d'opacité */
+}
+
+
+/* ========================================
+   SECTION PROJETS
+   ======================================== */
+
+#projects {
+    border-top: 1px solid var(--border);
+}
+
+.projects-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 3rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.project-card:hover {
+    border-color: rgba(240, 255, 64, 0.25);
+    background: var(--accent-dim);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.project-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--text);
+}
+
+.project-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.project-link {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.2rem;
+    transition: color 0.25s, border-color 0.25s;
+    white-space: nowrap;
+}
+
+.project-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.project-desc {
+    font-size: 0.93rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.75;
+    flex: 1;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-top: auto;
 }
 
 
@@ -578,10 +687,15 @@ footer {
         gap: 2rem;
     }
 
+    .about-photo {
+        max-width: 140px;
+    }
+
     /* Idem pour la grille de compétences : 3 colonnes → 1 colonne */
     .skills-grid {
         grid-template-columns: 1fr;
     }
+
 
     /* Les liens de contact s'empilent verticalement au lieu d'être côte à côte */
     .contact-links {
